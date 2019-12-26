@@ -20,10 +20,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Docker@2
-      displayName: Build an image
+   
+    - task: AzureRmWebAppDeployment@4   
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/DotNetCoreContainer2/DotNetCoreContainer2/Dockerfile'
-        tags: |
-          $(tag)
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Visual Studio Professional (e82d82c0-1e50-4b64-ba23-d4d9dfba3968)'
+        appType: 'webAppLinux'
+        WebAppName: 'EyalAppService'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
